@@ -1,0 +1,18 @@
+web:
+  #image: 'gitlab:ssl'
+  #image: 'gitlab/gitlab-ce:latest'
+  image:  'store/gitlab/gitlab-ce:10.2.4-ce.0'
+  restart: always
+  hostname: 'scm.dataascii.com'
+  environment:
+    GITLAB_OMNIBUS_CONFIG: |
+      external_url 'http://scm.dataascii.com'
+
+      # Add any other gitlab.rb configuration here, each on its own line
+  ports:
+    - '9080:80'
+    - '9022:22'
+  volumes:
+    - '/home/nutt/Docker/gitlab/config:/etc/gitlab'
+    - '/home/nutt/Docker/gitlab/logs:/var/log/gitlab'
+    - '/home/nutt/Docker/gitlab/data:/var/opt/gitlab'
