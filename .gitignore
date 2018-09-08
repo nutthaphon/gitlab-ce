@@ -1,0 +1,8 @@
+
+config/
+
+data/
+
+logs/nginx/
+
+logs/reconfigure/
