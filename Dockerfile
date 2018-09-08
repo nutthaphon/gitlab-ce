@@ -15,10 +15,17 @@ RUN apt-get update -q \
 	  postfix \
       nano
 
+ENV TZ 'Asia/Bangkok'
+RUN echo $TZ > /etc/timezone && \
+    apt-get update && apt-get install -y tzdata && \
+    rm /etc/localtime && \
+    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
+    dpkg-reconfigure -f noninteractive tzdata
+
 # Download & Install GitLab
 RUN echo "deb https://packages.gitlab.com/gitlab/gitlab-ce/ubuntu/ `lsb_release -cs` main" > /etc/apt/sources.list.d/gitlab_gitlab-ce.list
 RUN wget -q -O - https://packages.gitlab.com/gpg.key | apt-key add -
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive EXTERNAL_URL="http://gitlab.example.com" apt-get install -yq --no-install-recommends gitlab-ce
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends gitlab-ce
  
 # Manage SSHD through runit
 RUN mkdir -p /opt/gitlab/sv/sshd/supervise \
