@@ -1,16 +1,16 @@
 web:
-  image: 'gitlab-ce:latest'
+  image: 'gitlab/gitlab-ce:latest'
   restart: 'no'
-  hostname: 'ascii'
+  hostname: 'scm'
   environment:
     GITLAB_OMNIBUS_CONFIG: |
-      external_url 'http://192.168.1.109'
+      external_url 'http://scm.ascii.in.th:8080'
 
       # Add any other gitlab.rb configuration here, each on its own line
   ports:
-    - '9080:80'
+    - '8080:80'
     - '9022:22'
   volumes:
-    - '/home/nutt/Docker/gitlab-ce/config:/etc/gitlab'
-    - '/home/nutt/Docker/gitlab-ce/logs:/var/log/gitlab'
-    - '/home/nutt/Docker/gitlab-ce/data:/var/opt/gitlab'
+    - '/home/nc-user/Docker/gitlab-ce/config:/etc/gitlab'
+    - '/home/nc-user/Docker/gitlab-ce/logs:/var/log/gitlab'
+    - '/home/nc-user/Docker/gitlab-ce/data:/var/opt/gitlab'
